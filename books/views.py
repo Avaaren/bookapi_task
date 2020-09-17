@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.generics import (
     ListAPIView,
-    RetrieveAPIView
+    RetrieveAPIView,
+    CreateAPIView,
 )
 from rest_framework.response import Response
 
@@ -34,3 +35,11 @@ class BookDetailView(RetrieveAPIView):
     def get_object(self):
         pk = self.kwargs.get('book_id')
         return get_object_or_404(Book, pk=pk)
+
+
+class BookCreateView(CreateAPIView):
+    '''Добавление новой книги'''
+    queryset = Book.objects.all()
+    serializer_class = BookDetailSerializer
+
+    
